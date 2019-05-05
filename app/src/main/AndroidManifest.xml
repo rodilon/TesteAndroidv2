@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="br.com.renan.resourcetest">
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application android:name=".TestApplication"
                  android:allowBackup="true"
@@ -10,11 +11,16 @@
                  android:theme="@style/AppTheme">
 
         <activity
-                android:name=".ui.MainActivity"
+                android:name=".MainActivity"
                 android:configChanges="keyboardHidden"
-                android:exported="false"
+                android:exported="true"
                 android:launchMode="singleTop"
                 android:screenOrientation="portrait"
-                android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
+                android:windowSoftInputMode="stateHidden|stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
     </application>
 </manifest>

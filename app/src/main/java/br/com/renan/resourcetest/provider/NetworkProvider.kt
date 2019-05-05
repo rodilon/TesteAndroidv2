@@ -1,7 +1,7 @@
 package br.com.renan.resourcetest.provider
 
 import br.com.renan.resourcetest.BuildConfig
-import br.com.renan.resourcetest.model.data.api.statement.Api
+import br.com.renan.resourcetest.model.api.Api
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
