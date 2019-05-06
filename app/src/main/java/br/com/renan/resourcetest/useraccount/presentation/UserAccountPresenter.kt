@@ -9,7 +9,7 @@ import io.reactivex.schedulers.Schedulers
 
 class UserAccountPresenter {
     lateinit var userAccountService: UserAccountService
-    private var compositeDisposable: CompositeDisposable? = null
+    lateinit var compositeDisposable: CompositeDisposable
 
 
     fun requestUserAccountData(){

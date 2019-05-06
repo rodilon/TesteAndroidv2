@@ -9,7 +9,7 @@ import io.reactivex.schedulers.Schedulers
 
 class StatementPresenter {
     private lateinit var statementService: StatementService
-    private var compositeDisposable: CompositeDisposable? = null
+    private lateinit var compositeDisposable: CompositeDisposable
 
     fun requestStatementData(){
         statementService = ServiceProvides.getStatementService()
@@ -22,6 +22,6 @@ class StatementPresenter {
                 {
                     it.stackTrace
                 })
-        compositeDisposable?.add(requestDisposable)
+        compositeDisposable.add(requestDisposable)
     }
 }

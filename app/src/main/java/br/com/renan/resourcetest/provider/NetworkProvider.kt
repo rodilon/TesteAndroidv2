@@ -11,8 +11,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object NetworkProvider {
 
-    private var okHttpBuilder: OkHttpClient.Builder? = null
-    private var api: Api? = null
+    private lateinit var okHttpBuilder: OkHttpClient.Builder
+    private lateinit var api: Api
 
     fun init() {
         provideOkHttpBuilder()
@@ -29,7 +29,7 @@ object NetworkProvider {
 
     private fun provideApi() {
         api = Retrofit.Builder()
-            .client(okHttpBuilder?.build()!!)
+            .client(okHttpBuilder.build())
             .baseUrl(BuildConfig.API)
             .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder().build()))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
