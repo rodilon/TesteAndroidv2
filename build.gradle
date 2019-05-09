@@ -26,14 +26,12 @@ allprojects {
 ext {
     constraintVersion = '1.1.3'
     retrofitVersion = '2.3.0'
-    daggerVersion = '2.15'
-    aacVersion = '1.1.1'
     okhttpVersion = '3.8.1'
     moshiVersion = '1.4.0'
     rxVersion = '2.1.5'
     rxAndroidVersion = '2.1.0'
     rxKotlinVersion = '2.3.0'
-    picassoVersion = '2.71828'
+    calligraphyVersion = '2.3.0'
 }
 
 task clean(type: Delete) {

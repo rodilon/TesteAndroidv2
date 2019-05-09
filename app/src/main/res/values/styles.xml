@@ -1,11 +1,15 @@
 <resources>
+    <!--Login-->
+    <style name="Login" parent="AppTheme">
+        <item name="android:textColor">@color/cadetBlue</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">@drawable/ed_border</item>
+    </style>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="Login.Button" parent="AppTheme">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">@drawable/btn_border</item>
     </style>
 
 </resources>
