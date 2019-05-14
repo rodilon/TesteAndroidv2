@@ -12,9 +12,9 @@ class UserAccountService {
     private val user: String = "test_user"
     private val pass: String = "Test@1"
 
-    private val userAccess: UserAccountAccess = UserAccountAccess(user, pass)
 
-    fun getData(): Flowable<UserAccountDataResult> {
+    fun getData(login: String, password: String): Flowable<UserAccountDataResult> {
+        val userAccess = UserAccountAccess(login, password)
         return NetworkProvider.getApi().getAccount(userAccess)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

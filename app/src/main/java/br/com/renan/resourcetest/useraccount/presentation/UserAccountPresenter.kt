@@ -12,11 +12,11 @@ class UserAccountPresenter {
     private var compositeDisposable: CompositeDisposable? = null
 
 
-    fun requestUserAccountData(){
+    fun requestUserAccountData(login: String, password: String){
         userAccountService = ServiceProvides.getAccountService()
 
 
-        val requestDisposable: Disposable = userAccountService.getData()
+        val requestDisposable: Disposable = userAccountService.getData(login, password)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({

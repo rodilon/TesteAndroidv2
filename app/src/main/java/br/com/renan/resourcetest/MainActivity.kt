@@ -1,5 +1,6 @@
 package br.com.renan.resourcetest
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
@@ -8,7 +9,9 @@ import android.widget.EditText
 import br.com.caelum.stella.validation.CPFValidator
 import br.com.caelum.stella.validation.InvalidStateException
 import br.com.renan.resourcetest.statement.presentation.presenter.StatementPresenter
+import br.com.renan.resourcetest.statement.presentation.view.StatementActivity
 import br.com.renan.resourcetest.useraccount.presentation.UserAccountPresenter
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,17 +22,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        val login: EditText = this.findViewById(R.id.et_user)
-        val password: EditText = this.findViewById(R.id.et_password)
+        val fieldUser: EditText = this.findViewById(R.id.et_user)
+        val fieldPassword: EditText = this.findViewById(R.id.et_password)
+        val buttonLogin: Button = this.findViewById(R.id.btn_login)
 
-        validateLogin(login)
-        validatePassword(password)
+        validatePassword(fieldPassword)
+        validateUser(fieldUser)
+
+        buttonLogin.setOnClickListener {
+            userAccountPresenter.requestUserAccountData(fieldUser.text.toString(), fieldPassword.text.toString())
+            val intent = Intent(this, StatementActivity::class.java)
+            startActivity(intent)
+        }
 
         statementPresenter.requestStatementData()
-        userAccountPresenter.requestUserAccountData()
     }
-
-
 
     private fun validatePassword(field: EditText) {
         field.setOnFocusChangeListener { v, hasFocus ->
@@ -43,10 +50,9 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-
     }
 
-    private fun validateLogin(field: EditText) {
+    private fun validateUser(field: EditText) {
         field.setOnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
                 val text = field.text.toString()
@@ -58,9 +64,9 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     if (!validateCPF(text) && text.isNotEmpty())
                         field.error = getString(R.string.invalidCpf)
-                    else
+                    else{
                         field.error = null
-
+                    }
                 }
             }
         }
