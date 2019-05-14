@@ -60,4 +60,7 @@ dependencies {
 
     //Fonts
     implementation "uk.co.chrisjenx:calligraphy:$calligraphyVersion"
+
+    //Stella
+    implementation "br.com.caelum.stella:caelum-stella-core:$stellaVersion"
 }

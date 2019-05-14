@@ -1,4 +1,4 @@
-package br.com.renan.resourcetest.statement.presentation
+package br.com.renan.resourcetest.statement.presentation.presenter
 
 import br.com.renan.resourcetest.model.service.StatementService
 import br.com.renan.resourcetest.provider.ServiceProvides

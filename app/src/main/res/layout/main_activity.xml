@@ -1,61 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/main_activity"
-        android:layout_height="match_parent">
 
-    <ImageView
-            android:id="@+id/iv_login"
-            android:src="@drawable/logo"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="56dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    <EditText
-            style="@style/Login"
-            android:id="@+id/et_user"
+<ScrollView android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="70dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:hint="@string/user"
-            fontPath="fonts/HelveticaNeue.ttf"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_login"/>
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <EditText
-            style="@style/Login"
-            android:id="@+id/et_password"
+    <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="16dp"
-            android:inputType="textPassword"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:hint="@string/password"
-            fontPath="fonts/HelveticaNeue.ttf"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_user"/>
+            android:id="@+id/main_activity"
+            android:layout_height="match_parent">
 
-    <Button
-            style="@style/Login.Button"
-            android:id="@+id/btn_login"
-            android:layout_marginBottom="56dp"
-            fontPath="fonts/HelveticaNeue.ttf"
-            android:textAllCaps="false"
-            android:text="@string/login"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="200dp"
-            android:layout_height="60dp"/>
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+                android:id="@+id/iv_login"
+                android:src="@drawable/logo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="56dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <EditText
+                style="@style/Login"
+                android:id="@+id/et_user"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:hint="@string/user"
+                fontPath="fonts/HelveticaNeue.ttf"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_login"/>
+
+        <EditText
+                style="@style/Login"
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="16dp"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:hint="@string/password"
+                fontPath="fonts/HelveticaNeue.ttf"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_user"/>
+
+        <Button
+                style="@style/Login.Button"
+                android:id="@+id/btn_login"
+                fontPath="fonts/HelveticaNeue.ttf"
+                android:textAllCaps="false"
+                android:text="@string/login"
+                android:layout_marginTop="250dp"
+                app:layout_constraintEnd_toEndOf="@+id/et_password"
+                app:layout_constraintStart_toStartOf="@+id/et_password"
+                app:layout_constraintTop_toBottomOf="@+id/et_password"
+                android:layout_width="200dp"
+                android:layout_height="60dp"/>
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
+
