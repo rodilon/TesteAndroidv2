@@ -3,7 +3,9 @@ package br.com.renan.resourcetest
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
 import br.com.caelum.stella.validation.CPFValidator
@@ -15,6 +17,7 @@ import br.com.renan.resourcetest.useraccount.presentation.UserAccountPresenter
 
 class MainActivity : AppCompatActivity() {
 
+    private var correctPass: String = ""
     private val statementPresenter = StatementPresenter()
     private val userAccountPresenter = UserAccountPresenter()
 
@@ -30,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         validateUser(fieldUser)
 
         buttonLogin.setOnClickListener {
-            userAccountPresenter.requestUserAccountData(fieldUser.text.toString(), fieldPassword.text.toString())
+            userAccountPresenter.requestUserAccountData(fieldUser.text.toString(), correctPass)
             val intent = Intent(this, StatementActivity::class.java)
             startActivity(intent)
         }
@@ -39,17 +42,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun validatePassword(field: EditText) {
-        field.setOnFocusChangeListener { v, hasFocus ->
-            if (!hasFocus) {
-                val text = field.text.toString()
+        field.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val text = s.toString()
                 val regex = """^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{3,}$""".toRegex()
-                if (!text.matches(regex))
+                if (!text.matches(regex) && text.isNotEmpty())
                     field.error = getString(R.string.invalidPassword)
-                else
+                else {
                     field.error = null
+                    correctPass = text
+                }
             }
 
-        }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
     }
 
     private fun validateUser(field: EditText) {
