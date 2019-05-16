@@ -63,4 +63,10 @@ dependencies {
 
     //Stella
     implementation "br.com.caelum.stella:caelum-stella-core:$stellaVersion"
+
+    //RecyclerView
+    implementation "com.android.support:recyclerview-v7:$recyclerVersion"
+
+    //CardView
+    implementation "com.android.support:cardview-v7:$cardViewVersion"
 }

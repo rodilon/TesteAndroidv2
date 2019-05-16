@@ -33,6 +33,8 @@ ext {
     rxKotlinVersion = '2.3.0'
     calligraphyVersion = '2.3.0'
     stellaVersion = '2.1.2'
+    recyclerVersion = '28.0.0'
+    cardViewVersion = '28.0.0'
 }
 
 task clean(type: Delete) {

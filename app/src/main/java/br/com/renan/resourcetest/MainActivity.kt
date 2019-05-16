@@ -10,7 +10,6 @@ import android.widget.Button
 import android.widget.EditText
 import br.com.caelum.stella.validation.CPFValidator
 import br.com.caelum.stella.validation.InvalidStateException
-import br.com.renan.resourcetest.statement.presentation.presenter.StatementPresenter
 import br.com.renan.resourcetest.statement.presentation.view.StatementActivity
 import br.com.renan.resourcetest.useraccount.presentation.UserAccountPresenter
 
@@ -18,7 +17,6 @@ import br.com.renan.resourcetest.useraccount.presentation.UserAccountPresenter
 class MainActivity : AppCompatActivity() {
 
     private var correctPass: String = ""
-    private val statementPresenter = StatementPresenter()
     private val userAccountPresenter = UserAccountPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,8 +35,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, StatementActivity::class.java)
             startActivity(intent)
         }
-
-        statementPresenter.requestStatementData()
     }
 
     private fun validatePassword(field: EditText) {
