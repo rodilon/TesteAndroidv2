@@ -14,11 +14,9 @@
             android:layout_height="match_parent">
 
         <TextView
+                style="@style/Statement.Recycler.Title"
                 android:id="@+id/tv_title"
-                android:text="Pagamento"
-                android:textSize="16sp"
                 android:padding="8dp"
-                android:textColor="@color/cadetBlue"
                 android:layout_marginStart="25dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -26,41 +24,35 @@
                 android:layout_height="wrap_content"/>
 
         <TextView
+                style="@style/Statement.Recycler.Date"
                 android:id="@+id/tv_date"
-                android:text="12/12/2018"
                 android:padding="8dp"
                 android:layout_marginEnd="36dp"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@id/tv_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:textColor="@color/cadetBlue"
+                app:layout_constraintBottom_toBottomOf="@id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
         <TextView
+                style="@style/Statement.Recycler.Desc"
                 android:id="@+id/tv_desc"
-                android:text="Conta de luz"
                 android:padding="8dp"
-                android:textColor="@color/riverBed"
                 android:layout_marginTop="16dp"
-                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@id/tv_title"
                 app:layout_constraintTop_toBottomOf="@id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
         <TextView
-                android:text="R$1.000,00"
+                style="@style/Statement.Recycler.Value"
                 android:id="@+id/tv_value"
-                android:textSize="20sp"
-                android:textColor="@color/riverBed"
                 android:padding="8dp"
-                app:layout_constraintBottom_toBottomOf="@id/tv_desc"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="36dp"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/tv_desc"
                 app:layout_constraintTop_toBottomOf="@+id/tv_date"/>
 
     </android.support.constraint.ConstraintLayout>

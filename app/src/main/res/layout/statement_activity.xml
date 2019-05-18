@@ -17,11 +17,9 @@
             app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
+                style="@style/Statement.Title"
                 android:id="@+id/tv_name"
-                android:text="Jose da Silva Teste"
-                android:textSize="25sp"
                 fontPath="fonts/HelveticaNeueLight.ttf"
-                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -40,44 +38,41 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
+                style="@style/Statement.Fields"
                 android:id="@+id/tv_account"
-                android:text="Conta"
-                android:textColor="@color/white"
+                android:text="@string/accountStatement"
                 android:layout_marginTop="25dp"
-                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@id/tv_name"
                 app:layout_constraintTop_toBottomOf="@id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
         <TextView
+                style="@style/Statement.BankAccount"
                 android:id="@+id/tv_account_number"
-                android:textColor="@color/white"
                 android:layout_marginTop="6dp"
-                android:textSize="20sp"
-                android:text="2050 / 01.111222-4"
+                fontPath="fonts/HelveticaNeueLight.ttf"
                 app:layout_constraintTop_toBottomOf="@id/tv_account"
                 app:layout_constraintStart_toStartOf="@id/tv_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
         <TextView
+                style="@style/Statement.Fields"
                 android:id="@+id/tv_balance"
                 android:layout_marginTop="20dp"
-                android:textSize="12sp"
-                android:text="Saldo"
-                android:textColor="@color/white"
+                android:text="@string/balanceStatement"
                 app:layout_constraintTop_toBottomOf="@id/tv_account_number"
                 app:layout_constraintStart_toStartOf="@id/tv_account_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
         <TextView
+                style="@style/Statement.BalanceNumber"
                 android:id="@+id/tv_balance_number"
-                android:text="R$1.000,00"
-                android:textSize="20sp"
-                android:textColor="@color/white"
                 android:layout_marginTop="6dp"
+                android:fontFamily="@"
+                fontPath="fonts/HelveticaNeueLight.ttf"
                 app:layout_constraintTop_toBottomOf="@id/tv_balance"
                 app:layout_constraintStart_toStartOf="@id/tv_balance"
                 android:layout_width="wrap_content"
@@ -87,8 +82,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <TextView
-            android:text="Recentes"
-            android:textSize="17sp"
+            style="@style/Statement.Title.Secondary"
             android:id="@+id/tv_recents"
             android:layout_marginTop="8dp"
             android:layout_marginStart="16dp"

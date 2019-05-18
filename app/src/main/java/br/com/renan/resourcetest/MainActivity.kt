@@ -17,7 +17,6 @@ import br.com.renan.resourcetest.useraccount.presentation.UserAccountPresenter
 class MainActivity : AppCompatActivity() {
 
     private var correctPass: String = ""
-    private val userAccountPresenter = UserAccountPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +30,9 @@ class MainActivity : AppCompatActivity() {
         validateUser(fieldUser)
 
         buttonLogin.setOnClickListener {
-            userAccountPresenter.requestUserAccountData(fieldUser.text.toString(), correctPass)
             val intent = Intent(this, StatementActivity::class.java)
+            intent.putExtra("user", fieldUser.text.toString())
+            intent.putExtra("password", fieldPassword.text.toString())
             startActivity(intent)
         }
     }

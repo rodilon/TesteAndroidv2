@@ -8,4 +8,15 @@
     <string name="invalidEmail">Email inválido</string>
     <string name="invalidCpf">CPF inválido</string>
     <string name="at">\@</string>
+    <string name="bankBalance">%1$s / %2$s</string>
+    <string name="nameStatement">Jose da Silva Teste</string>
+    <string name="accountStatement">Conta</string>
+    <string name="bankAccountStatement">2050 / 01.111222-4</string>
+    <string name="balanceStatement">Saldo</string>
+    <string name="balanceNumberStatement">R$1.000,00</string>
+    <string name="recentsStatement">Recentes</string>
+    <string name="paymentStatement">Pagamento</string>
+    <string name="dataStatement">12/12/2018</string>
+    <string name="descStatement">Conta de luz</string>
+    <string name="valueStatement">R$1.000,00</string>
 </resources>
