@@ -8,9 +8,9 @@ import io.reactivex.schedulers.Schedulers
 
 class StatementService {
 
-    fun getData(): Flowable<StatementListDataResult> {
+    fun getData(userId: Int): Flowable<StatementListDataResult> {
         return NetworkProvider.getApi()
-            .getStatements(1)
+            .getStatements(userId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }

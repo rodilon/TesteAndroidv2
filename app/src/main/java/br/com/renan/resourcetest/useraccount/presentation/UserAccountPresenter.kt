@@ -14,6 +14,7 @@ class UserAccountPresenter : IStatementContract.Presenter {
     private lateinit var statementService: StatementService
     private lateinit var userAccountService: UserAccountService
     private var compositeDisposable: CompositeDisposable? = null
+    private var userId: Int = 0
 
     lateinit var view: IStatementContract.View
 
@@ -30,6 +31,7 @@ class UserAccountPresenter : IStatementContract.Presenter {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({
                 view.populateUserAccountSuccess(it)
+                userId = it.userAccount.id
             },
                 {
                     it.stackTrace
@@ -42,7 +44,7 @@ class UserAccountPresenter : IStatementContract.Presenter {
     override fun requestStatementData(){
         statementService = ServiceProvides.getStatementService()
 
-        val requestDisposable: Disposable = statementService.getData()
+        val requestDisposable: Disposable = statementService.getData(userId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({
