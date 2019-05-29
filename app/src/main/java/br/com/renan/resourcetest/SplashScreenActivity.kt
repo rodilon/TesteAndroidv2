@@ -1,9 +1,9 @@
 package br.com.renan.resourcetest
 
-import android.support.v7.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.content.Intent
+import android.support.v7.app.AppCompatActivity
 import br.com.renan.resourcetest.model.data.UserAccountAccess
 import br.com.renan.resourcetest.statement.presentation.view.StatementActivity
 import com.orhanobut.hawk.Hawk
@@ -19,30 +19,33 @@ class SplashScreenActivity : AppCompatActivity() {
         Hawk.init(this).build()
 
         Handler().postDelayed({
-            mostrarLogin()
+            showLogin()
         }, 2000)
     }
 
-    private fun mostrarLogin() {
-
-        if (isHawked()) {
+    private fun showLogin() {
+        if (isCached()) {
             val access = get<UserAccountAccess>("EncryptedAccess")
-            val intent = Intent(this, StatementActivity::class.java)
-            intent.putExtra("user", access.user)
-            intent.putExtra("password", access.password)
-            startActivity(intent)
-            Hawk.destroy()
+            goToStatementActivity(access)
         } else {
-            val intent = Intent(
-                this,
-                MainActivity::class.java
-            )
-            startActivity(intent)
+            goToMainActivity()
         }
         finish()
     }
 
-    private fun isHawked(): Boolean {
+    private fun goToMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun goToStatementActivity(access: UserAccountAccess) {
+        val intent = Intent(this, StatementActivity::class.java)
+        intent.putExtra("user", access.user)
+        intent.putExtra("password", access.password)
+        startActivity(intent)
+    }
+
+    private fun isCached(): Boolean {
         return Hawk.contains("EncryptedAccess")
     }
 }

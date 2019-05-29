@@ -1,6 +1,6 @@
 package br.com.renan.resourcetest.useraccount.presentation
 
-import br.com.renan.resourcetest.IStatementContract
+import br.com.renan.resourcetest.statement.presentation.IStatementContract
 import br.com.renan.resourcetest.model.service.StatementService
 import br.com.renan.resourcetest.model.service.UserAccountService
 import br.com.renan.resourcetest.provider.ServiceProvides

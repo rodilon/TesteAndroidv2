@@ -1,4 +1,4 @@
-package br.com.renan.resourcetest
+package br.com.renan.resourcetest.statement.presentation
 
 import br.com.renan.resourcetest.model.data.StatementListDataResult
 import br.com.renan.resourcetest.model.data.UserAccountSuccess

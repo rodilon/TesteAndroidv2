@@ -5,13 +5,12 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
-import android.text.TextUtils
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
-import br.com.caelum.stella.validation.CPFValidator
-import br.com.caelum.stella.validation.InvalidStateException
 import br.com.renan.resourcetest.statement.presentation.view.StatementActivity
+import br.com.renan.resourcetest.util.validateCPF
+import br.com.renan.resourcetest.util.validateEMAIL
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,26 +27,38 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        fieldUser = this.findViewById(R.id.et_user)
-        fieldPassword = this.findViewById(R.id.et_password)
-        buttonLogin = this.findViewById(R.id.btn_login)
+        bindViews()
 
-        validatePassword(fieldPassword)
-        validateUser(fieldUser)
+        validateLogin()
 
         buttonLogin.setOnClickListener {
             if (flagPass && flagUser){
-                val intent = Intent(this, StatementActivity::class.java)
-                intent.putExtra("user", correctUser)
-                intent.putExtra("password", correctPass)
-                startActivity(intent)
-                fieldUser.text = null
-                fieldPassword.text = null
-                flagPass = false
+                goToStatementActivity()
             } else {
                 Snackbar.make(it, "Usuário ou senha incorreta", Snackbar.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun goToStatementActivity() {
+        val intent = Intent(this, StatementActivity::class.java)
+        intent.putExtra("user", correctUser)
+        intent.putExtra("password", correctPass)
+        startActivity(intent)
+        fieldUser.text = null
+        fieldPassword.text = null
+        flagPass = false
+    }
+
+    private fun validateLogin() {
+        validatePassword(fieldPassword)
+        validateUser(fieldUser)
+    }
+
+    private fun bindViews() {
+        fieldUser = this.findViewById(R.id.et_user)
+        fieldPassword = this.findViewById(R.id.et_password)
+        buttonLogin = this.findViewById(R.id.btn_login)
     }
 
     private fun validatePassword(field: EditText) {
@@ -102,19 +113,5 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun validateCPF(text: String) : Boolean {
-        try {
-            val cpfValidator = CPFValidator()
-            cpfValidator.assertValid(text)
-        } catch (e: InvalidStateException) {
-            return false
-        }
-        return true
-    }
-
-    private fun validateEMAIL(text: String): Boolean {
-        return !TextUtils.isEmpty(text) && android.util.Patterns.EMAIL_ADDRESS.matcher(text).matches()
     }
 }

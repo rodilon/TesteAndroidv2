@@ -7,7 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.ImageView
 import android.widget.TextView
-import br.com.renan.resourcetest.IStatementContract
+import br.com.renan.resourcetest.statement.presentation.IStatementContract
 import br.com.renan.resourcetest.MainActivity
 import br.com.renan.resourcetest.R
 import br.com.renan.resourcetest.model.data.StatementListData
@@ -41,24 +41,28 @@ class StatementActivity : AppCompatActivity(), IStatementContract.View {
 
         Hawk.init(this).build()
 
+        getExtrasFromMain()
+
+        bindViews()
+
+        userAccountPresenter.bind(this)
+
+        initView()
+
+        userAccountPresenter.requestUserAccountData(user, password)
+        callLogout()
+    }
+
+    private fun getExtrasFromMain() {
         user = intent.getStringExtra("user")
         password = intent.getStringExtra("password")
+    }
 
+    private fun bindViews() {
         name = this.findViewById(R.id.tv_name)
         bankAgency = this.findViewById(R.id.tv_account_number)
         balance = this.findViewById(R.id.tv_balance_number)
         logout = this.findViewById(R.id.iv_logout)
-
-        userAccountPresenter.bind(this)
-
-        statementAdapter = StatementAdapter(listStatement)
-        recyclerView.itemAnimator = DefaultItemAnimator()
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = statementAdapter
-
-
-        userAccountPresenter.requestUserAccountData(user, password)
-        callLogout()
     }
 
     private fun callLogout() {
@@ -89,7 +93,14 @@ class StatementActivity : AppCompatActivity(), IStatementContract.View {
 
     override fun populateStatementSuccess(statementDataResult: StatementListDataResult) {
         listStatement.addAll(statementDataResult.statementListData)
+        recyclerView.itemAnimator = DefaultItemAnimator()
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = statementAdapter
         statementAdapter.notifyDataSetChanged()
+    }
+
+    private fun initView() {
+        statementAdapter = StatementAdapter(listStatement)
     }
 
     override fun populateUserAccountSuccess(userAccountSuccess: UserAccountSuccess) {
