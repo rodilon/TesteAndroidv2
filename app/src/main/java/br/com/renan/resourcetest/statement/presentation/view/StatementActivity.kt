@@ -72,9 +72,14 @@ class StatementActivity : AppCompatActivity(), IStatementContract.View {
     }
 
     private fun backPress() {
-        Hawk.put("EncryptedAccess", UserAccountAccess(user, password))
+       if (isCached())
+           Hawk.delete("EncryptedAccess")
         finish()
         goToMainActivity()
+    }
+
+    private fun isCached(): Boolean {
+        return Hawk.contains("EncryptedAccess")
     }
 
     private fun goToMainActivity() {
@@ -86,8 +91,8 @@ class StatementActivity : AppCompatActivity(), IStatementContract.View {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         backPress()
+        super.onBackPressed()
     }
 
 

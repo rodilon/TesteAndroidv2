@@ -8,9 +8,11 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
+import br.com.renan.resourcetest.model.data.UserAccountAccess
 import br.com.renan.resourcetest.statement.presentation.view.StatementActivity
 import br.com.renan.resourcetest.util.validateCPF
 import br.com.renan.resourcetest.util.validateEMAIL
+import com.orhanobut.hawk.Hawk
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+
+        Hawk.init(this).build()
 
         bindViews()
 
@@ -45,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra("user", correctUser)
         intent.putExtra("password", correctPass)
         startActivity(intent)
+        Hawk.put("EncryptedAccess", UserAccountAccess(correctUser, correctPass))
         fieldUser.text = null
         fieldPassword.text = null
         flagPass = false
