@@ -7,12 +7,10 @@ interface IStatementContract  {
 
     interface View {
         fun populateStatementSuccess(statementDataResult: StatementListDataResult)
-        fun populateUserAccountSuccess(userAccountSuccess: UserAccountSuccess)
     }
 
     interface Presenter {
         fun bind(view: View)
-        fun requestUserAccountData(login: String, password: String)
-        fun requestStatementData()
+        fun requestStatementData(userId: Int)
     }
 }

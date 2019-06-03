@@ -7,14 +7,13 @@ import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.ImageView
 import android.widget.TextView
-import br.com.renan.resourcetest.statement.presentation.IStatementContract
 import br.com.renan.resourcetest.MainActivity
 import br.com.renan.resourcetest.R
 import br.com.renan.resourcetest.model.data.StatementListData
 import br.com.renan.resourcetest.model.data.StatementListDataResult
-import br.com.renan.resourcetest.model.data.UserAccountAccess
 import br.com.renan.resourcetest.model.data.UserAccountSuccess
-import br.com.renan.resourcetest.useraccount.presentation.UserAccountPresenter
+import br.com.renan.resourcetest.statement.presentation.IStatementContract
+import br.com.renan.resourcetest.statement.presentation.StatementPresenter
 import br.com.renan.resourcetest.util.addMask
 import br.com.renan.resourcetest.util.formatCurrency
 import com.orhanobut.hawk.Hawk
@@ -29,8 +28,9 @@ class StatementActivity : AppCompatActivity(), IStatementContract.View {
 
     lateinit var user: String
     lateinit var password: String
+    lateinit var userAccountSuccess: UserAccountSuccess
 
-    private val userAccountPresenter = UserAccountPresenter()
+    private val statementPresenter = StatementPresenter()
     private lateinit var statementAdapter: StatementAdapter
 
     private val listStatement = ArrayList<StatementListData>()
@@ -39,23 +39,23 @@ class StatementActivity : AppCompatActivity(), IStatementContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.statement_activity)
 
-        Hawk.init(this).build()
-
         getExtrasFromMain()
 
         bindViews()
 
-        userAccountPresenter.bind(this)
-
         initView()
 
-        userAccountPresenter.requestUserAccountData(user, password)
-        callLogout()
+        statementPresenter.bind(this)
+
+        populateAccountData()
+
+        statementPresenter.requestStatementData(userAccountSuccess.userAccount.id)
+
+        initListners()
     }
 
     private fun getExtrasFromMain() {
-        user = intent.getStringExtra("user")
-        password = intent.getStringExtra("password")
+        userAccountSuccess = intent.getParcelableExtra("userAccountSuccess")
     }
 
     private fun bindViews() {
@@ -65,7 +65,7 @@ class StatementActivity : AppCompatActivity(), IStatementContract.View {
         logout = this.findViewById(R.id.iv_logout)
     }
 
-    private fun callLogout() {
+    private fun initListners() {
         logout.setOnClickListener {
             backPress()
         }
@@ -95,6 +95,14 @@ class StatementActivity : AppCompatActivity(), IStatementContract.View {
         super.onBackPressed()
     }
 
+    private fun populateAccountData() {
+        name.text = userAccountSuccess.userAccount.name
+        bankAgency.text = getString(R.string.bankBalance,
+            userAccountSuccess.userAccount.bankAccount,
+            addMask(userAccountSuccess.userAccount.agency, "##.######-##"))
+        balance.text = formatCurrency(userAccountSuccess.userAccount.balance)
+    }
+
 
     override fun populateStatementSuccess(statementDataResult: StatementListDataResult) {
         listStatement.addAll(statementDataResult.statementListData)
@@ -106,18 +114,5 @@ class StatementActivity : AppCompatActivity(), IStatementContract.View {
 
     private fun initView() {
         statementAdapter = StatementAdapter(listStatement)
-    }
-
-    override fun populateUserAccountSuccess(userAccountSuccess: UserAccountSuccess) {
-        name.text = userAccountSuccess.userAccount.name
-        bankAgency.text = getString(R.string.bankBalance,
-            userAccountSuccess.userAccount.bankAccount,
-            addMask(userAccountSuccess.userAccount.agency, "##.######-##"))
-        balance.text = formatCurrency(userAccountSuccess.userAccount.balance)
-        callStatementData()
-    }
-
-    private fun callStatementData() {
-        userAccountPresenter.requestStatementData()
     }
 }

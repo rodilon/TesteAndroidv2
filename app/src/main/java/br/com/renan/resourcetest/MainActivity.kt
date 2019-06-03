@@ -9,14 +9,19 @@ import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
 import br.com.renan.resourcetest.model.data.UserAccountAccess
+import br.com.renan.resourcetest.model.data.UserAccountSuccess
 import br.com.renan.resourcetest.statement.presentation.view.StatementActivity
+import br.com.renan.resourcetest.useraccount.presentation.IUserAccountContract
+import br.com.renan.resourcetest.useraccount.presentation.UserAccountPresenter
 import br.com.renan.resourcetest.util.validateCPF
 import br.com.renan.resourcetest.util.validateEMAIL
 import com.orhanobut.hawk.Hawk
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), IUserAccountContract.View {
 
+    private var userAccountAccess: UserAccountAccess? = null
+    private val userAccountPresenter = UserAccountPresenter()
     private lateinit var fieldPassword: EditText
     private lateinit var fieldUser: EditText
     private lateinit var buttonLogin: Button
@@ -25,31 +30,65 @@ class MainActivity : AppCompatActivity() {
     private var correctPass: String = ""
     private var correctUser: String = ""
 
+    private var userAccountDataSuccess: UserAccountSuccess? = null
+
+    private fun bindViews() {
+        fieldUser = this.findViewById(R.id.et_user)
+        fieldPassword = this.findViewById(R.id.et_password)
+        buttonLogin = this.findViewById(R.id.btn_login)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-
-        Hawk.init(this).build()
 
         bindViews()
 
         validateLogin()
 
+        userAccountPresenter.bind(this)
+
+        initListners()
+
+        loginWithCache()
+    }
+
+    private fun loginWithCache() {
+        val user = intent.getStringExtra("user")
+        val password = intent.getStringExtra("password")
+
+        if (user != null && password != null) {
+            userAccountPresenter.requestUserAccountData(user, password)
+        }
+    }
+
+    private fun initListners() {
         buttonLogin.setOnClickListener {
-            if (flagPass && flagUser){
-                goToStatementActivity()
+            if (flagPass && flagUser) {
+                loginWithoutCache()
             } else {
                 Snackbar.make(it, "Usuário ou senha incorreta", Snackbar.LENGTH_LONG).show()
             }
         }
     }
 
+    private fun loginWithoutCache() {
+        userAccountPresenter.requestUserAccountData(correctUser, correctPass)
+    }
+
+    override fun populateUserAccountSuccess(userAccountSuccess: UserAccountSuccess) {
+        userAccountDataSuccess = userAccountSuccess
+        goToStatementActivity()
+    }
+
     private fun goToStatementActivity() {
         val intent = Intent(this, StatementActivity::class.java)
-        intent.putExtra("user", correctUser)
-        intent.putExtra("password", correctPass)
+        intent.putExtra("userAccountSuccess", userAccountDataSuccess)
         startActivity(intent)
-        Hawk.put("EncryptedAccess", UserAccountAccess(correctUser, correctPass))
+
+        userAccountAccess = UserAccountAccess(correctUser, correctPass)
+
+        Hawk.put("EncryptedAccess", userAccountAccess)
         fieldUser.text = null
         fieldPassword.text = null
         flagPass = false
@@ -58,12 +97,6 @@ class MainActivity : AppCompatActivity() {
     private fun validateLogin() {
         validatePassword(fieldPassword)
         validateUser(fieldUser)
-    }
-
-    private fun bindViews() {
-        fieldUser = this.findViewById(R.id.et_user)
-        fieldPassword = this.findViewById(R.id.et_password)
-        buttonLogin = this.findViewById(R.id.btn_login)
     }
 
     private fun validatePassword(field: EditText) {

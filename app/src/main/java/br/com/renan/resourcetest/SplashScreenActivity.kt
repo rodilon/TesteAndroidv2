@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import br.com.renan.resourcetest.model.data.UserAccountAccess
-import br.com.renan.resourcetest.statement.presentation.view.StatementActivity
 import com.orhanobut.hawk.Hawk
 import com.orhanobut.hawk.Hawk.get
 
@@ -16,8 +15,6 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.act_splash_screen)
 
-        Hawk.init(this).build()
-
         Handler().postDelayed({
             showLogin()
         }, 2000)
@@ -26,7 +23,8 @@ class SplashScreenActivity : AppCompatActivity() {
     private fun showLogin() {
         if (isCached()) {
             val access = get<UserAccountAccess>("EncryptedAccess")
-            goToStatementActivity(access)
+            goToMainActivity(access)
+            Hawk.delete("EncryptedAccess")
         } else {
             goToMainActivity()
         }
@@ -38,8 +36,8 @@ class SplashScreenActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun goToStatementActivity(access: UserAccountAccess) {
-        val intent = Intent(this, StatementActivity::class.java)
+    private fun goToMainActivity(access: UserAccountAccess) {
+        val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("user", access.user)
         intent.putExtra("password", access.password)
         startActivity(intent)

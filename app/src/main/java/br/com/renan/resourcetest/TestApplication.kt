@@ -2,6 +2,7 @@ package br.com.renan.resourcetest
 
 import android.app.Application
 import br.com.renan.resourcetest.provider.NetworkProvider
+import com.orhanobut.hawk.Hawk
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
 
@@ -25,5 +26,6 @@ class TestApplication : Application() {
 
     private fun init() {
         NetworkProvider.init()
+        Hawk.init(this).build()
     }
 }
